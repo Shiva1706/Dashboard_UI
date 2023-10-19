@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import classNames from "classnames";
 import { RiSettingsLine } from "react-icons/ri";
 import { BsArrowRightCircle } from "react-icons/bs";
@@ -30,6 +30,25 @@ function SidebarLink({ item }) {
 const Sidebar = () => {
 
   const [open, setOpen ] =useState(true);
+  const [screenSize, setScreenSize ] = useState(window.innerWidth);
+
+  const detectSize =()=>{
+    setScreenSize(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize' ,detectSize);
+
+    return () => {
+      window.removeEventListener('resize', detectSize);
+      if(screenSize<=1007){
+        setOpen(false);
+      }else{
+        setOpen(true)
+      }
+    }
+  }, [screenSize])
+  
   return (
     
 
